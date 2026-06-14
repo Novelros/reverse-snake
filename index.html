@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Обратная Змейка</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-wrapper">
+        <div class="game-header">
+            <div class="title">ОБРАТНАЯ ЗМЕЙКА</div>
+            <div class="score-display">
+                <span>Счёт: <span id="score">0000</span></span>
+                <span>Рекорд: <span id="highscore">0000</span></span>
+            </div>
+        </div>
+
+        <div id="canvas-container">
+            <canvas id="gameCanvas"></canvas>
+            <div id="overlay">
+                <h2 id="overlay-title">ВЫ - ЯБЛОКО</h2>
+                <p id="overlay-subtitle">Убегайте от змей. Не касайтесь стен и змеиных тел.</p>
+                <button id="start-btn">НАЧАТЬ ИГРУ</button>
+            </div>
+        </div>
+
+        <div class="mobile-controls">
+            <div class="control-row">
+                <button class="ctrl-btn" data-key="ArrowUp">▲</button>
+            </div>
+            <div class="control-row">
+                <button class="ctrl-btn" data-key="ArrowLeft">◄</button>
+                <button class="ctrl-btn" data-key="ArrowDown">▼</button>
+                <button class="ctrl-btn" data-key="ArrowRight">►</button>
+            </div>
+        </div>
+
+        <div class="controls-hint">
+            <span class="desktop-hint">Стрелки или WASD - движение | ESC - меню</span>
+            <span class="mobile-hint">Кнопки внизу - движение | Встряхните - меню</span>
+        </div>
+    </div>
+
+    <div id="pause-menu" class="hidden">
+        <div class="menu-content">
+            <h2>ПАУЗА</h2>
+            <div class="rules">
+                <p><strong>Правила игры:</strong></p>
+                <p>Вы - красное яблоко. Змеи хотят вас съесть.</p>
+                <p>Двигайтесь стрелками, WASD или кнопками.</p>
+                <p>Не врезайтесь в стены и тела змей.</p>
+                <p>Чем дольше живёте - тем больше змей.</p>
+                <p>Красные змеи - толстые и опасные.</p>
+                <p>Жёлтые змеи - быстрые и тонкие.</p>
+                <p>Зелёные змеи - обычные.</p>
+            </div>
+            <button id="resume-btn">ПРОДОЛЖИТЬ</button>
+        </div>
+    </div>
+
+    <script src="snake.js"></script>
+    <script src="renderer.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
