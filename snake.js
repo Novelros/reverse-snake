@@ -1,9 +1,12 @@
 class Snake {
-    constructor(type, gridSize) {
+    constructor(type, gridSize, startPosition = null) {
         this.type = type;
         this.timer = 0;
         this.state = 'normal';
         this.moveTicket = 0;
+        this.isDying = false;
+        this.deathPoint = null;
+        this.deathTicks = 0;
         
         if (type === 'yellow') {
             this.sizeFactor = 0.5;
@@ -22,7 +25,7 @@ class Snake {
             this.speedDivider = 1;
         }
         
-        this.body = this.createBody(gridSize);
+        this.body = this.createBody(gridSize, startPosition);
     }
     
     getRandomEdgePosition(gridSize) {
@@ -55,8 +58,8 @@ class Snake {
         return { x, y, dx, dy };
     }
     
-    createBody(gridSize) {
-        const start = this.getRandomEdgePosition(gridSize);
+    createBody(gridSize, startPosition = null) {
+        const start = startPosition || this.getRandomEdgePosition(gridSize);
         const length = this.type === 'red' ? 5 : 6;
         const body = [];
         
@@ -72,8 +75,44 @@ class Snake {
         
         return body;
     }
-    
+
+    markDying(point) {
+        if (this.isDying) return;
+        this.isDying = true;
+        this.deathPoint = { x: point.x, y: point.y };
+        this.deathTicks = 0;
+        this.color = '#bbbbbb';
+        this.darkColor = '#777777';
+    }
+
+    removeDeathPart() {
+        if (this.body.length === 0) return;
+
+        let closestIndex = 0;
+        let closestDistance = Infinity;
+
+        this.body.forEach((part, index) => {
+            const distance = Math.abs(part.x - this.deathPoint.x) + Math.abs(part.y - this.deathPoint.y);
+            if (distance < closestDistance) {
+                closestDistance = distance;
+                closestIndex = index;
+            }
+        });
+
+        this.body.splice(closestIndex, 1);
+    }
+
     update(player, gridSize) {
+        if (this.body.length === 0) return;
+
+        if (this.isDying) {
+            this.deathTicks++;
+            if (this.deathTicks > 1 && this.deathTicks % 2 === 0) {
+                this.removeDeathPart();
+            }
+            return;
+        }
+
         this.moveTicket += 1;
         if (this.moveTicket < this.speedDivider) return;
         this.moveTicket = 0;
@@ -120,5 +159,9 @@ class Snake {
             part.x < -1 || part.x > gridSize || 
             part.y < -1 || part.y > gridSize
         );
+    }
+
+    isGone() {
+        return this.body.length === 0;
     }
 }

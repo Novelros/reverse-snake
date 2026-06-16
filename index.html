@@ -11,7 +11,8 @@
         <div class="game-header">
             <div class="title">ОБРАТНАЯ ЗМЕЙКА</div>
             <div class="score-display">
-                <span>Счёт: <span id="score">0000</span></span>
+                <span>Время: <span id="score">0.0с</span></span>
+                <span>Скорость: <span id="current-speed">1x</span></span>
                 <span>Рекорд: <span id="highscore">0000</span></span>
             </div>
         </div>
@@ -21,7 +22,18 @@
             <div id="overlay">
                 <h2 id="overlay-title">ВЫ - ЯБЛОКО</h2>
                 <p id="overlay-subtitle">Убегайте от змей. Не касайтесь стен и змеиных тел.</p>
-                <button id="start-btn">НАЧАТЬ ИГРУ</button>
+                <div class="speed-panel" id="speed-panel">
+                    <div class="speed-title">Скорость</div>
+                    <div class="speed-options" role="group" aria-label="Скорость игры">
+                        <button type="button" class="speed-option" data-speed="0.25">0.25x</button>
+                        <button type="button" class="speed-option" data-speed="0.5">0.5x</button>
+                        <button type="button" class="speed-option active" data-speed="1">1x</button>
+                        <button type="button" class="speed-option" data-speed="1.25">1.25x</button>
+                        <button type="button" class="speed-option" data-speed="1.5">1.5x</button>
+                        <button type="button" class="speed-option" data-speed="2">2x</button>
+                    </div>
+                </div>
+                <button id="start-btn">ИГРАТЬ</button>
             </div>
         </div>
 
@@ -51,6 +63,7 @@
                 <p>Двигайтесь стрелками, WASD или кнопками.</p>
                 <p>Не врезайтесь в стены и тела змей.</p>
                 <p>Чем дольше живёте - тем больше змей.</p>
+                <p>Результат считается как время × скорость.</p>
                 <p>Красные змеи - толстые и опасные.</p>
                 <p>Жёлтые змеи - быстрые и тонкие.</p>
                 <p>Зелёные змеи - обычные.</p>
