@@ -12,16 +12,42 @@
             <div class="title">ОБРАТНАЯ ЗМЕЙКА</div>
             <div class="score-display">
                 <span>Счёт: <span id="score">0000</span></span>
+                <span>Время: <span id="time">0:00</span></span>
+                <span>Скорость: <span id="current-speed">1x</span></span>
                 <span>Рекорд: <span id="highscore">0000</span></span>
+                <span>Жизни: <span id="lives">3</span></span>
             </div>
         </div>
 
+        <div id="boss-hud" class="hidden">
+            <span id="boss-phase-text"></span>
+        </div>
+
+        <canvas id="bossCanvas" class="hidden"></canvas>
+
         <div id="canvas-container">
             <canvas id="gameCanvas"></canvas>
-            <div id="overlay">
+            <div id="overlay" class="hidden">
                 <h2 id="overlay-title">ВЫ - ЯБЛОКО</h2>
                 <p id="overlay-subtitle">Убегайте от змей. Не касайтесь стен и змеиных тел.</p>
-                <button id="start-btn">НАЧАТЬ ИГРУ</button>
+
+                <div id="menu-main" class="menu-column">
+                    <button id="start-btn">НАЧАТЬ ИГРУ</button>
+                    <button id="boss-btn" class="secondary-btn">БИТВА С БОССОМ</button>
+                    <button id="rules-btn" class="secondary-btn">ПРАВИЛА</button>
+                    <button id="records-btn" class="secondary-btn">РЕКОРДЫ</button>
+                </div>
+
+                <div id="menu-speed" class="menu-column hidden">
+                    <div class="speed-select">
+                        <span class="speed-label">Скорость:</span>
+                        <button class="speed-btn" data-speed="0.8">Медленно</button>
+                        <button class="speed-btn active" data-speed="1">Норма</button>
+                        <button class="speed-btn" data-speed="1.25">Быстро</button>
+                    </div>
+                    <button id="confirm-btn">ИГРАТЬ</button>
+                    <button id="speed-back-btn" class="secondary-btn">НАЗАД</button>
+                </div>
             </div>
         </div>
 
@@ -45,22 +71,41 @@
     <div id="pause-menu" class="hidden">
         <div class="menu-content">
             <h2>ПАУЗА</h2>
-            <div class="rules">
-                <p><strong>Правила игры:</strong></p>
-                <p>Вы - красное яблоко. Змеи хотят вас съесть.</p>
-                <p>Двигайтесь стрелками, WASD или кнопками.</p>
-                <p>Не врезайтесь в стены и тела змей.</p>
-                <p>Чем дольше живёте - тем больше змей.</p>
-                <p>Красные змеи - толстые и опасные.</p>
-                <p>Жёлтые змеи - быстрые и тонкие.</p>
-                <p>Зелёные змеи - обычные.</p>
+            <div class="button-row">
+                <button id="resume-btn">ПРОДОЛЖИТЬ</button>
+                <button id="pause-rules-btn" class="secondary-btn">ПРАВИЛА</button>
             </div>
-            <button id="resume-btn">ПРОДОЛЖИТЬ</button>
+        </div>
+    </div>
+
+    <div id="rules-modal" class="hidden">
+        <div class="menu-content">
+            <h2>ПРАВИЛА ИГРЫ</h2>
+            <div class="rules">
+                <p>Вы - красное яблоко. Убегайте от змей стрелками, WASD или кнопками. Не врезайтесь в стены и тела змей. У вас 3 жизни.</p>
+                <p><strong>Змеи:</strong></p>
+                <p>Зелёная - обычная. Жёлтая - быстрая и тонкая. Красная - толстая и опасная. Червь - вылезает из случайной точки карты (клетка мигает заранее) и ползёт прямо на вас.</p>
+                <p><strong>Предметы:</strong></p>
+                <p>Красный крест - доп. жизнь. Синяя капля - щит на 3 секунды. Фиолетовая капля - невидимость.</p>
+            </div>
+            <button id="rules-back-btn">НАЗАД</button>
+        </div>
+    </div>
+
+    <div id="records-modal" class="hidden">
+        <div class="menu-content">
+            <h2>РЕКОРДЫ</h2>
+            <div class="rules">
+                <p>Лучший результат (выживание): <span id="record-survival" style="color:#ffaa00;">0000</span></p>
+                <p>Лучшее время босса: <span id="record-boss" style="color:#66ccff;">—</span></p>
+            </div>
+            <button id="records-back-btn">НАЗАД</button>
         </div>
     </div>
 
     <script src="snake.js"></script>
     <script src="renderer.js"></script>
+    <script src="boss.js"></script>
     <script src="game.js"></script>
 </body>
 </html>

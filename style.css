@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+:root {
+    --field-size: min(94vw, 82vh, 760px);
+}
+
 body {
     background-color: #000000;
     color: #ffffff;
@@ -61,14 +65,47 @@ body {
     color: #ffaa00;
 }
 
+#lives {
+    color: #ff66aa;
+}
+
+#time {
+    color: #66ccff;
+}
+
+#current-speed {
+    color: #44cc44;
+}
+
 #canvas-container {
     position: relative;
     border: 3px solid #666666;
     background: #000000;
-    width: min(90vw, 90vh, 500px);
-    height: min(90vw, 90vh, 500px);
-    max-width: 600px;
-    max-height: 600px;
+    width: var(--field-size);
+    height: var(--field-size);
+    max-width: 800px;
+    max-height: 800px;
+}
+
+#boss-hud {
+    width: var(--field-size);
+    max-width: 800px;
+    text-align: center;
+    color: #ffdd33;
+    font-size: clamp(12px, 2.8vw, 18px);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#bossCanvas {
+    display: block;
+    width: var(--field-size);
+    max-width: 800px;
+    height: clamp(60px, 11vw, 100px);
+    border: 3px solid #666666;
+    border-bottom: none;
+    background: #000000;
+    image-rendering: pixelated;
 }
 
 canvas {
@@ -107,6 +144,61 @@ canvas {
     font-size: clamp(12px, 2.5vw, 16px);
 }
 
+.menu-column {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: min(100%, 260px);
+    gap: 10px;
+}
+
+.menu-column button {
+    width: 100%;
+}
+
+.speed-select {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+    margin-bottom: 4px;
+}
+
+.speed-label {
+    color: #999999;
+    font-size: clamp(11px, 2.2vw, 14px);
+    text-align: center;
+}
+
+.speed-btn {
+    background: #000000;
+    color: #999999;
+    border: 2px solid #444444;
+    padding: 6px 10px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: clamp(11px, 2.2vw, 14px);
+    cursor: pointer;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+.speed-btn.active {
+    color: #ffffff;
+    border-color: #ffffff;
+}
+
+.button-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.secondary-btn {
+    border-color: #666666;
+    color: #999999;
+}
+
 button {
     background: #000000;
     color: #ffffff;
@@ -139,20 +231,20 @@ button:active {
 .control-row {
     display: flex;
     justify-content: center;
-    gap: 5px;
-    margin: 3px 0;
+    gap: 10px;
+    margin: 5px 0;
 }
 
 .ctrl-btn {
-    width: 50px;
-    height: 50px;
-    min-width: 44px;
-    min-height: 44px;
+    width: 60px;
+    height: 60px;
+    min-width: 48px;
+    min-height: 48px;
     padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 22px;
+    font-size: 24px;
     background: #1a1a1a;
     border: 2px solid #444444;
     color: #ffffff;
@@ -194,10 +286,27 @@ button:active {
     padding: 20px;
 }
 
+#rules-modal,
+#records-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 110;
+    padding: 20px;
+}
+
 .menu-content {
     text-align: center;
     max-width: 350px;
     width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
     padding: 20px;
     border: 2px solid #666666;
     background: #000000;
@@ -242,25 +351,140 @@ button:active {
         padding: 5px;
         gap: 3px;
     }
-    
-    #canvas-container {
-        width: min(95vw, 85vh, 400px);
-        height: min(95vw, 85vh, 400px);
+
+    :root {
+        --field-size: min(96vw, 60vh, 460px);
+    }
+}
+
+@media (max-width: 768px) and (max-height: 450px) and (orientation: landscape) {
+    body {
+        align-items: flex-start;
+        overflow: auto;
+    }
+
+    .game-wrapper {
+        padding: 4px;
+        gap: 2px;
+    }
+
+    .title {
+        font-size: 16px;
+        letter-spacing: 1px;
+        margin-bottom: 1px;
+    }
+
+    .score-display {
+        font-size: 11px;
+        gap: 8px;
+        row-gap: 2px;
+    }
+
+    :root {
+        --field-size: min(90vw, calc(100dvh - 90px), 240px);
+    }
+
+    #boss-hud {
+        font-size: 10px;
+    }
+
+    #bossCanvas {
+        height: 40px;
+    }
+
+    #overlay {
+        padding: 8px;
+    }
+
+    #overlay-title {
+        font-size: 13px;
+        margin-bottom: 4px;
+    }
+
+    #overlay-subtitle {
+        font-size: 10px;
+        line-height: 1.2;
+        margin-bottom: 6px;
+        max-width: 200px;
+    }
+
+    .speed-select {
+        gap: 4px;
+        margin-bottom: 8px;
+    }
+
+    .speed-label {
+        font-size: 10px;
+    }
+
+    .speed-btn {
+        padding: 3px 6px;
+        font-size: 10px;
+    }
+
+    button {
+        padding: 5px 12px;
+        font-size: 12px;
+    }
+
+    .menu-content {
+        padding: 10px;
+        max-height: 85vh;
+    }
+
+    .menu-content h2 {
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+
+    .rules {
+        font-size: 10px;
+        line-height: 1.3;
+        margin-bottom: 10px;
+    }
+
+    .mobile-controls {
+        max-width: 220px;
+        margin-top: 2px;
+    }
+
+    .control-row {
+        gap: 4px;
+        margin: 2px 0;
+    }
+
+    .ctrl-btn {
+        width: 34px;
+        height: 34px;
+        min-width: 34px;
+        min-height: 34px;
+        font-size: 15px;
+    }
+
+    .controls-hint {
+        font-size: 9px;
+        margin-top: 1px;
     }
 }
 
 @media (max-width: 400px) {
-    #canvas-container {
-        width: 95vw;
-        height: 95vw;
-        max-width: 350px;
-        max-height: 350px;
+    :root {
+        --field-size: 96vw;
     }
-    
+
+    #canvas-container {
+        max-width: 400px;
+        max-height: 400px;
+    }
+
+    #bossCanvas {
+        max-width: 400px;
+    }
+
     .ctrl-btn {
-        width: 44px;
-        height: 44px;
-        font-size: 18px;
+        width: 52px;
+        height: 52px;
+        font-size: 20px;
     }
     
     .menu-content {
